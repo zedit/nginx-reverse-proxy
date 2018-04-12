@@ -1,0 +1,38 @@
+server {
+    listen 8091;
+    server_name *.testing.tru.clinic;
+    #include snippets/letsencrypt.conf;
+    rewrite ^ https://$server_name$request_uri? permanent;
+}
+
+server {
+    listen 8090;
+    location /integrations/epic/encrypt {
+        proxy_pass http://NGINX_INTEGARATIONS_EPIC_ENCRYPT_SED/qapi/v1/integrations/epic/encrypt;
+        proxy_set_header Host      $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+    }
+    location /integrations/epic {
+        proxy_pass http://NGINX_INTEGARATIONS_EPIC_SED/qapi/v1/integrations/epic_demo;
+        proxy_set_header Host      $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+    }
+    location /superadmin/ {
+        proxy_pass http://127.0.0.1:3011/;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+    }
+    # front
+    location / {
+        proxy_pass http://NGINX_ROOT_SED;
+    }
+    location /socket.io {
+      proxy_pass http://NGINX_SOCKET.IO_SED;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      #proxy_set_header Connection $connection_upgrade;
+    }
+}
