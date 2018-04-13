@@ -1,0 +1,13 @@
+version: '3.2'
+services:
+  nginx-reverse-proxy:
+    build:
+      context: .
+    environment:
+      - NGINX_INTEGARATIONS_EPIC_ENCRYPT_HOST=localhost:3001
+      - NGINX_INTEGARATIONS_EPIC_HOST=localhost:3001
+      - NGINX_ROOT_HOST=localhost:3001
+      - NGINX_SUPERADMIN_HOST=127.0.0.1:3011
+      - NGINX_SOCKETIO_HOST=localhost:3001
+      - NGINX_SSL_REWRITE_PORT=8080
+      - NGINX_PROXY_PORT=80

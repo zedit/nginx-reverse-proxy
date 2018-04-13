@@ -14,8 +14,7 @@
 Clone this repository in your directory.
 
 ```sh
-$ cd workdir
-$ git clone https://github.com/unicanova/tru_clinic
+$ git clone https://github.com/unicanova/nginx-reverse-proxy
 
 ```
 
