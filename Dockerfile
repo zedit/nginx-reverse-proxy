@@ -2,8 +2,8 @@
 FROM nginx
 
 # Expose dgraph ports
-EXPOSE 8090
-EXPOSE 8091
+EXPOSE 80
+EXPOSE 8080
 
 # Copying config files
 COPY default.conf /etc/nginx/conf.d/default.conf
