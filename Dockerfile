@@ -6,7 +6,7 @@ EXPOSE 8090
 EXPOSE 8091
 
 # Copying config files
-COPY default /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY nginx_entrypoint.sh /nginx_entrypoint.sh
 
 # Run!
