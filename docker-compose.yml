@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   nginx-reverse-proxy:
-    image: nginx-reverse-proxy:1
+    image: unicanova/nginx_reverse_proxy:1
     environment:
       - NGINX_INTEGARATIONS_EPIC_ENCRYPT_URL=localhost:3001
       - NGINX_INTEGARATIONS_EPIC_URL=localhost:3001
