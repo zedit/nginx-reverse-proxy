@@ -1,13 +1,9 @@
 # Documentation
 
 + [Quickstart](#Quickstart);
-+ [Build container](#Build);
-    + [Examples](#Ex1);
 + [Run container](#Run);
     + [Environment variables](#Table2);
     + [Examples](#Ex2);
-+ [Docker compose](#DC);
-    + [Examples](#Ex3);
 
 ## <a name="Quickstart"></a> Quickstart
 
@@ -15,23 +11,29 @@ Clone this repository in your directory.
 
 ```sh
 $ git clone https://github.com/unicanova/nginx-reverse-proxy
-
 ```
-
-## <a name="Build"></a> Build container
-
 To build docker image with nginx you have to execute in the parent folder **docker build -t reponame:version .**
 
-### <a name="Ex1"></a> Examples
+```sh
+$ docker build -t nginx_reverse_proxy:1 .
+```
+Push docker image in docker hub
+```sh
+$ docker login
+$ docker push nginx_reverse_proxy:1
+```
+
+If necessary, edit `docker-compose.yml` file for your situation and write:
 
 ```sh
-$ docker build -t <tag> .
-
+$ docker-compose up
 ```
+
+Image will be created and container automatically launched. 
 
 ## <a name="Run"></a> Run container
 
-The container can also be launched in two ways:
+The container can be launched in two ways:
 
 * a with the use of default values of environment variables.
 
@@ -41,27 +43,18 @@ The container can also be launched in two ways:
 
 | Variable name | Variable value | Default Value |
 | ------------- | -------------- | ------------- |
-| NGINX_INTEGARATIONS_EPIC_ENCRYPT_HOST | host address | localhost:3001 |
-| NGINX_INTEGARATIONS_EPIC_HOST | host address  | localhost:3001 |
-| NGINX_ROOT_HOST | host address  | localhost:3001 |
-| NGINX_SUPERADMIN_HOST | host address  | 127.0.0.1:3011 |
-| NGINX_SOCKETIO_HOST | host address  | localhost:3001 |
-| NGINX_SSL_REWRITE_PORT | ssl rewrite port  | 80 |
-| NGINX_PROXY_PORT |  proxy pass port | 443 |
+| NGINX_INTEGARATIONS_EPIC_ENCRYPT_URL | host_name:port without http:// (port is optional) | localhost:3001 |
+| NGINX_INTEGARATIONS_EPIC_URL | host_name:port without http:// (port is optional) | localhost:3001 |
+| NGINX_ROOT_URL | host_name:port without http:// (port is optional)  | localhost:3001 |
+| NGINX_SUPERADMIN_URL | host_name:port without http:// (port is optional) | 127.0.0.1:3011 |
+| NGINX_SOCKETIO_URL | host_name:port without http:// (port is optional) | localhost:3001 |
+| NGINX_SSL_REWRITE_PORT | ssl rewrite port | 8080 |
+| NGINX_PROXY_PORT | proxy pass port | 80 |
 
 ### <a name="Ex2"></a> Examples 
 
 ```sh
-a $ docker run <container_name>
+a $ docker run nginx_reverse_proxy:1
 
-b $ docker run -e NGINX_INTEGARATIONS_EPIC_ENCRYPT_HOST=<host_name> -e NGINX_SSL_REWRITE_PORT=<port> <container_name>"
-```
-
-## <a name="DC"></a> Docker-compose
-
-
-### <a name="Ex3"></a> Examples 
-
-```sh
-$ docker-compose up
+b $ docker run -e NGINX_INTEGARATIONS_EPIC_ENCRYPT_URL=clinic:3334 -e NGINX_SSL_REWRITE_PORT=1111 nginx_reverse_proxy:1"
 ```
